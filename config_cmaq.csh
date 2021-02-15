@@ -19,18 +19,18 @@
  # may, on the other hand, be outside the repository if the user has 
  # created a separate project directory where they wish to put build-
  # and run-scripts as well as executables.
- setenv CMAQ_HOME $cwd
+ setenv CMAQ_HOME $WRF_CMAQ_HOME/build/CMAQ
 
  # CMAQ_REPO - this is always the location of the CMAQ repository that
  # the user will pull from to create exectuables. If the user is building
  # CMAQ inside the repository then it will be equal to CMAQ_HOME. If not,
  # the user must supply an alternative folder locaiton.
- setenv CMAQ_REPO $CMAQ_HOME
+ setenv CMAQ_REPO $WRF_CMAQ_HOME/CMAQ
 
  # CMAQ_DATA - this may be where the input data are located. It may be a 
  # symbolic link to another location on the system, but it should be
  # provided here 
- setenv CMAQ_DATA $CMAQ_HOME/data
+ setenv CMAQ_DATA $WRF_CMAQ_HOME/data
  if ( ! -d $CMAQ_DATA ) mkdir -p $CMAQ_DATA
 
  cd $CMAQ_HOME
@@ -82,15 +82,15 @@
         #> I/O API, netCDF, and MPI library locations
         setenv IOAPI_INCL_DIR   ioapi_inc_intel    #> I/O API include header files
         setenv IOAPI_LIB_DIR    ioapi_lib_intel    #> I/O API libraries
-        setenv NETCDF_LIB_DIR   netcdf_lib_intel   #> netCDF C directory path
-        setenv NETCDF_INCL_DIR  netcdf_inc_intel   #> netCDF C directory path
-        setenv NETCDFF_LIB_DIR  netcdff_lib_intel  #> netCDF Fortran directory path
-        setenv NETCDFF_INCL_DIR netcdff_inc_intel  #> netCDF Fortran directory path
-        setenv MPI_LIB_DIR      mpi_lib_intel      #> MPI directory path
+        setenv NETCDF_LIB_DIR   "`nc-config --libdir`" #> netCDF C directory path
+        setenv NETCDF_INCL_DIR  "`nc-config --includedir`" #> netCDF C directory path
+        setenv NETCDFF_LIB_DIR  $NETCDF_LIB_DIR/Intel #> netCDF Fortran directory path
+        setenv NETCDFF_INCL_DIR $NETCDF_INCL_DIR/Intel  #> netCDF Fortran directory path
+        setenv MPI_LIB_DIR      $OMPI_ROOT/lib     #> MPI directory path
     
         #> Compiler Aliases and Flags
         #> set the compiler flag -qopt-report=5 to get a model optimization report in the build directory with the optrpt extension
-        setenv myFC mpiifort
+        setenv myFC mpifort
         setenv myCC icc       
         setenv myFSTD "-O3 -fno-alias -mp1 -fp-model source -ftz -simd -align all -xHost -vec-guard-write -unroll-aggressive"
         setenv myDBG  "-O0 -g -check bounds -check uninit -fpe0 -fno-alias -ftrapuv -traceback"
@@ -112,7 +112,7 @@
         #> I/O API, netCDF, and MPI library locations
         setenv IOAPI_INCL_DIR   iopai_inc_pgi   #> I/O API include header files
         setenv IOAPI_LIB_DIR    ioapi_lib_pgi   #> I/O API libraries
-        setenv NETCDF_LIB_DIR   netcdf_lib_pgi  #> netCDF C directory path
+        setenv NETCDF_LIB_DIR   netcdf_lib_intel   #> netCDF C directory path
         setenv NETCDF_INCL_DIR  netcdf_inc_pgi  #> netCDF C directory path
         setenv NETCDFF_LIB_DIR  netcdff_lib_pgi #> netCDF Fortran directory path
         setenv NETCDFF_INCL_DIR netcdff_inc_pgi #> netCDF Fortran directory path
