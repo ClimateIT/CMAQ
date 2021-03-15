@@ -25,7 +25,7 @@
  # the user will pull from to create exectuables. If the user is building
  # CMAQ inside the repository then it will be equal to CMAQ_HOME. If not,
  # the user must supply an alternative folder locaiton.
- setenv CMAQ_REPO $WRF_CMAQ_HOME/CMAQ
+ setenv CMAQ_REPO $WRF_CMAQ_HOME/src/CMAQ
 
  # CMAQ_DATA - this may be where the input data are located. It may be a 
  # symbolic link to another location on the system, but it should be
@@ -80,8 +80,8 @@
     case intel:
     
         #> I/O API, netCDF, and MPI library locations
-        setenv IOAPI_INCL_DIR   ioapi_inc_intel    #> I/O API include header files
-        setenv IOAPI_LIB_DIR    ioapi_lib_intel    #> I/O API libraries
+        setenv IOAPI_INCL_DIR   $WRF_CMAQ_HOME/src/ioapi-3.2/ioapi/ #> I/O API include header files
+        setenv IOAPI_LIB_DIR    $WRF_CMAQ_HOME/src/ioapi-3.2/Linux2_x86_64ifort_gadi/  #> I/O API libraries
         setenv NETCDF_LIB_DIR   "`nc-config --libdir`" #> netCDF C directory path
         setenv NETCDF_INCL_DIR  "`nc-config --includedir`" #> netCDF C directory path
         setenv NETCDFF_LIB_DIR  $NETCDF_LIB_DIR/Intel #> netCDF Fortran directory path
@@ -92,14 +92,14 @@
         #> set the compiler flag -qopt-report=5 to get a model optimization report in the build directory with the optrpt extension
         setenv myFC mpifort
         setenv myCC icc       
-        setenv myFSTD "-O3 -fno-alias -mp1 -fp-model source -ftz -simd -align all -xHost -vec-guard-write -unroll-aggressive"
+        setenv myFSTD "-O3 -fno-alias -mp1 -fp-model source -ftz -simd -align all -xCORE-AVX2 -vec-guard-write -unroll-aggressive"
         setenv myDBG  "-O0 -g -check bounds -check uninit -fpe0 -fno-alias -ftrapuv -traceback"
-        setenv myLINK_FLAG #"-qopenmp-simd" openMP not supported w/ CMAQ
+        setenv myLINK_FLAG "-qopenmp"
         setenv myFFLAGS "-fixed -132"
         setenv myFRFLAGS "-free"
         setenv myCFLAGS "-O2"
-        setenv extra_lib "-lcurl"
-        #setenv extra_lib ""
+        #setenv extra_lib "-lcurl"
+        setenv extra_lib ""
         setenv mpi_lib ""    #> No Library specification needed for mpiifort
                              #> -lmpich for mvapich 
                              #> -lmpi for openmpi

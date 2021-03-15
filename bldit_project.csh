@@ -20,6 +20,9 @@
  #set CMAQ_HOME = [your_install_path]/openmpi_4.0.1_gcc_9.1.0_debug 
  set CMAQ_HOME = $WRF_CMAQ_HOME/build/CMAQ
 
+ # model source code repository location 
+ set REPO_HOME = $WRF_CMAQ_HOME/src/CMAQ
+
 #> This section allows users to choose explicitly which tools
 #> to make available from the repo. For each selected tool,
 #> extract_scripts.csh will copy any build and run scripts
@@ -45,9 +48,6 @@
  set EXT_SITECMP_DAILYO3 = Y 
  set EXT_WRITESITE = Y 
 
-
-#> model source code repository location 
- set REPO_HOME = $WRF_CMAQ_HOME/CMAQ
 
 #> Check that the host system is Linux-based
  set BLD_OS = `uname -s`
