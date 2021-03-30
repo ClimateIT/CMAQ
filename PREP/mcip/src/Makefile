@@ -47,10 +47,10 @@ MODEL = mcip.exe
 
 #...Intel Fortran
 FC      = ifort
-IOAPI_ROOT = ${WRF_CMAQ_HOME}/src/ioapi-3.2/Linux2_x86_64ifort_gadi
+IOAPI_ROOT = ${WRF_CMAQ_HOME}/src/ioapi-3.2/Linux2_x86_64ifort
 ###FFLAGS  = -g -O0 -check all -C -traceback -FR -I$(NETCDF)/include  \
 ###          -I$(IOAPI_ROOT)/Linux2_x86_64ifort
-FFLAGS  = -qopenmp -FR -O3 -traceback -I$(NETCDF)/include -I$(IOAPI_ROOT)
+FFLAGS  = -qopenmp -FR -O3 -traceback -I $(shell nf-config --prefix)/include -I$(IOAPI_ROOT)
 LIBS    = -L$(IOAPI_ROOT) -lioapi $(shell nc-config --flibs)
 
 DEFS   = 

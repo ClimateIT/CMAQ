@@ -81,12 +81,12 @@
     
         #> I/O API, netCDF, and MPI library locations
         setenv IOAPI_INCL_DIR   $WRF_CMAQ_HOME/src/ioapi-3.2/ioapi/ #> I/O API include header files
-        setenv IOAPI_LIB_DIR    $WRF_CMAQ_HOME/src/ioapi-3.2/Linux2_x86_64ifort_gadi/  #> I/O API libraries
+        setenv IOAPI_LIB_DIR    $WRF_CMAQ_HOME/src/ioapi-3.2/Linux2_x86_64ifort/  #> I/O API libraries
         setenv NETCDF_LIB_DIR   "`nc-config --libdir`" #> netCDF C directory path
         setenv NETCDF_INCL_DIR  "`nc-config --includedir`" #> netCDF C directory path
-        setenv NETCDFF_LIB_DIR  $NETCDF_LIB_DIR/Intel #> netCDF Fortran directory path
-        setenv NETCDFF_INCL_DIR $NETCDF_INCL_DIR/Intel  #> netCDF Fortran directory path
-        setenv MPI_LIB_DIR      $OMPI_ROOT/lib     #> MPI directory path
+        setenv NETCDFF_LIB_DIR  `nf-config --prefix`/lib #> netCDF Fortran directory path
+        setenv NETCDFF_INCL_DIR `nf-config --prefix`/include #> netCDF Fortran directory path
+        setenv MPI_LIB_DIR      $OMPI_ROOT #> MPI directory path
     
         #> Compiler Aliases and Flags
         #> set the compiler flag -qopt-report=5 to get a model optimization report in the build directory with the optrpt extension
@@ -217,19 +217,19 @@
 
 #> Check for netcdf and I/O API libs/includes, error if they don't exist
  if ( ! -e $NETCDF_DIR/lib/libnetcdf.a ) then 
-    echo "ERROR: $NETCDF_DIR/lib/libnetcdf.a does not exist in your CMAQ_LIB directory!!! Check your installation before proceeding with CMAQ build."
+    echo "ERROR: $NETCDF_DIR/lib/libnetcdf.a does not exist in your CMAQ_LIB directory"
     exit
  endif
 if ( ! -e $NETCDFF_DIR/lib/libnetcdff.a ) then
-    echo "ERROR: $NETCDFF_DIR/lib/libnetcdff.a does not exist in your CMAQ_LIB directory!!! Check your installation before proceeding with CMAQ build."
+    echo "ERROR: $NETCDFF_DIR/lib/libnetcdff.a does not exist in your CMAQ_LIB directory"
     exit
  endif
  if ( ! -e $IOAPI_DIR/lib/libioapi.a ) then 
-    echo "ERROR: $IOAPI_DIR/lib/libioapi.a does not exist in your CMAQ_LIB directory!!! Check your installation before proceeding with CMAQ build."
+    echo "ERROR: $IOAPI_DIR/lib/libioapi.a does not exist in your CMAQ_LIB directory"
     exit
  endif
  if ( ! -e $IOAPI_DIR/lib/m3utilio.mod ) then 
-    echo "ERROR: $IOAPI_MOD_DIR/m3utilio.mod does not exist in your CMAQ_LIB directory!!! Check your installation before proceeding with CMAQ build."
+    echo "ERROR: $IOAPI_MOD_DIR/m3utilio.mod does not exist in your CMAQ_LIB directory"
     exit
  endif
 
